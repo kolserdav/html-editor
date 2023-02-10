@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { cleanLastDiv, setCaret } from './Main.lib';
+import { setCaret } from './Main.lib';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useText = ({ textAreaRef }: { textAreaRef: React.RefObject<HTMLDivElement> }) => {

@@ -18,18 +18,3 @@ export function setCaret(current: HTMLDivElement) {
   selection.addRange(range);
   current.focus();
 }
-
-export function cleanLastDiv(current: HTMLDivElement) {
-  console.log(current.innerHTML);
-  if (/<\/div>(<br ?>)?$/.test(current.innerHTML)) {
-    const lastDivReg = /^<div>.*<\/div>(<br ?>)?$/;
-    const lastDiv = current.innerHTML.match(lastDivReg);
-    let lastDivText = '';
-    if (lastDiv) {
-      lastDivText = lastDiv[0].replace(/^<div>/, '').replace(/<\/div>(<br ?>)?$/, '');
-    }
-    // eslint-disable-next-line no-param-reassign
-    current.innerHTML = current.innerHTML.replace(lastDivReg, lastDivText);
-    setCaret(current);
-  }
-}
