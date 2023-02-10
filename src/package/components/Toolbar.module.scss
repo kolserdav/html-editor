@@ -1,0 +1,10 @@
+.wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}

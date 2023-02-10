@@ -1,0 +1,28 @@
+@import '../styles/constants';
+
+.wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 100px;
+  padding: $textarea-padding;
+  cursor: text;
+}
+
+.cursor {
+  max-width: 1px;
+  animation-name: blinking;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes blinking {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
