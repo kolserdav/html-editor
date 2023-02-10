@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { setCaret } from './Main.lib';
+import { cleanLastDiv, setCaret } from './Main.lib';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useText = ({ textAreaRef }: { textAreaRef: React.RefObject<HTMLDivElement> }) => {
@@ -9,9 +9,19 @@ export const useText = ({ textAreaRef }: { textAreaRef: React.RefObject<HTMLDivE
       return;
     }
     // TODO replace tags
-    // current.innerHTML = current.innerHTML.replace(/<\/?div>/g, '');
+    current.innerHTML = current.innerHTML.replace(/ as /g, ' <b>as</b> ');
 
     setCaret(current);
+  };
+
+  const onKeyDownTextarea = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Backspace') {
+      const { current } = textAreaRef;
+      if (!current) {
+        // return;
+      }
+      // cleanLastDiv(current);
+    }
   };
 
   const onSelectText = (e: React.SyntheticEvent<HTMLDivElement, Event>) => {
@@ -21,20 +31,9 @@ export const useText = ({ textAreaRef }: { textAreaRef: React.RefObject<HTMLDivE
     }
     const range = sel.getRangeAt(0);
     if (!range.collapsed) {
-      console.log(range.endOffset, range.startOffset);
+      console.log(range);
     }
   };
 
-  /**
-   * Set position on change text
-   */
-  useEffect(() => {
-    const { current } = textAreaRef;
-    if (!current) {
-      return;
-    }
-    const { firstElementChild } = current;
-  }, [textAreaRef]);
-
-  return { onInputText, onSelectText };
+  return { onInputText, onSelectText, onKeyDownTextarea };
 };

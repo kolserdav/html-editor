@@ -10,13 +10,16 @@ const Textarea = forwardRef<
     theme: Theme;
     onInput: (e: React.FormEvent<HTMLDivElement>) => void;
     onSelect: (e: React.SyntheticEvent<HTMLDivElement, Event>) => void;
+    onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
   }
->(({ theme, onInput, onSelect }, ref) => (
+>(({ theme, onInput, onSelect, onKeyDown }, ref) => (
   <div
     ref={ref}
     tabIndex={-1}
     onSelect={onSelect}
     onInput={onInput}
+    spellCheck
+    onKeyDown={onKeyDown}
     contentEditable
     className={s.wrapper}
   />
