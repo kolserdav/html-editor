@@ -8,7 +8,7 @@ import { THEME_DEFAULT } from './utils/constants';
 
 function Main({ theme = THEME_DEFAULT }: { theme?: Theme }) {
   const textAreaRef = useRef<HTMLDivElement>(null);
-  const { text, setText, onKeyDownTextArea } = useText({ textAreaRef });
+  const { onInputText, onSelectText } = useText({ textAreaRef });
 
   return (
     <div
@@ -20,7 +20,7 @@ function Main({ theme = THEME_DEFAULT }: { theme?: Theme }) {
       }}
     >
       <Toolbar theme={theme} />
-      <Textarea ref={textAreaRef} theme={theme} text={text} onKeyDown={onKeyDownTextArea} />
+      <Textarea ref={textAreaRef} theme={theme} onInput={onInputText} onSelect={onSelectText} />
     </div>
   );
 }

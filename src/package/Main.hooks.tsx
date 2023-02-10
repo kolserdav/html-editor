@@ -1,36 +1,28 @@
 import { useEffect, useState } from 'react';
-import { checkSpecialKey, cleanLastSymbol, wrapText } from './Main.lib';
+import { setCaret } from './Main.lib';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useText = ({ textAreaRef }: { textAreaRef: React.RefObject<HTMLDivElement> }) => {
-  const [text, setText] = useState<string>('');
-
-  const onKeyDownTextArea = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    const { key } = e;
-    let _key = `${key}`;
-    let _text = `${text}`;
-    if (checkSpecialKey(key)) {
-      switch (key) {
-        case 'Tab':
-          _key = '&nbsp;&nbsp;&nbsp;&nbsp;';
-          e.preventDefault();
-          break;
-        case ' ':
-          _key = '&nbsp;';
-          break;
-        case 'Enter':
-          _key = '<br>';
-          break;
-        case 'Backspace':
-          _key = '';
-          _text = cleanLastSymbol(_text);
-          break;
-        default:
-          return;
-      }
+  const onInputText = (e: React.FormEvent<HTMLDivElement>) => {
+    const { current } = textAreaRef;
+    if (!current) {
+      return;
     }
-    _text += _key;
-    setText(wrapText({ text: _text, tag: 'p' }));
+    // TODO replace tags
+    // current.innerHTML = current.innerHTML.replace(/<\/?div>/g, '');
+
+    setCaret(current);
+  };
+
+  const onSelectText = (e: React.SyntheticEvent<HTMLDivElement, Event>) => {
+    const sel = window.getSelection();
+    if (!sel) {
+      return;
+    }
+    const range = sel.getRangeAt(0);
+    if (!range.collapsed) {
+      console.log(range.endOffset, range.startOffset);
+    }
   };
 
   /**
@@ -42,18 +34,7 @@ export const useText = ({ textAreaRef }: { textAreaRef: React.RefObject<HTMLDivE
       return;
     }
     const { firstElementChild } = current;
-    if (!firstElementChild) {
-      return;
-    }
+  }, [textAreaRef]);
 
-    const selection = window.getSelection();
-    if (!selection) {
-      return;
-    }
-    const range = selection.getRangeAt(0);
-    selection.addRange(range);
-    current.focus();
-  }, [text, textAreaRef]);
-
-  return { text, setText, onKeyDownTextArea };
+  return { onInputText, onSelectText };
 };

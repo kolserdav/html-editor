@@ -8,11 +8,18 @@ const Textarea = forwardRef<
   HTMLDivElement,
   {
     theme: Theme;
-    text: string;
-    onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+    onInput: (e: React.FormEvent<HTMLDivElement>) => void;
+    onSelect: (e: React.SyntheticEvent<HTMLDivElement, Event>) => void;
   }
->(({ theme, text, onKeyDown }, ref) => (
-  <div ref={ref} tabIndex={-1} onKeyDown={onKeyDown} contentEditable className={s.wrapper} />
+>(({ theme, onInput, onSelect }, ref) => (
+  <div
+    ref={ref}
+    tabIndex={-1}
+    onSelect={onSelect}
+    onInput={onInput}
+    contentEditable
+    className={s.wrapper}
+  />
 ));
 
 export default Textarea;
