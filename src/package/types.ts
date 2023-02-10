@@ -12,8 +12,3 @@ export interface IconProps {
   color?: string;
   animate?: React.ReactNode;
 }
-
-export interface CursorPosition {
-  clientX: number;
-  clientY: number;
-}

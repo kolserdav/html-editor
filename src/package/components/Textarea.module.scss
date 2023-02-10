@@ -3,10 +3,10 @@
 .wrapper {
   position: relative;
   height: 100%;
-  width: 100%;
+  width: calc(100% - $textarea-padding * 2);
   min-height: 100px;
-  padding: $textarea-padding;
   cursor: text;
+  padding: $textarea-padding;
 }
 
 .cursor {
