@@ -3,15 +3,14 @@ import { setCaret } from './Main.lib';
 
 // eslint-disable-next-line import/prefer-default-export
 export const useText = ({ textAreaRef }: { textAreaRef: React.RefObject<HTMLDivElement> }) => {
+  const [text, setText] = useState<string>();
   const onInputText = (e: React.FormEvent<HTMLDivElement>) => {
     const { current } = textAreaRef;
     if (!current) {
       return;
     }
-    // TODO replace tags
-    current.innerHTML = current.innerHTML.replace(/ as /g, ' <b>as</b> ');
-
     setCaret(current);
+    setText((e.target as HTMLTextAreaElement)?.textContent?.replace(/ as /, ' <b>as</b> '));
   };
 
   const onKeyDownTextarea = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -35,5 +34,5 @@ export const useText = ({ textAreaRef }: { textAreaRef: React.RefObject<HTMLDivE
     }
   };
 
-  return { onInputText, onSelectText, onKeyDownTextarea };
+  return { onInputText, onSelectText, onKeyDownTextarea, text };
 };

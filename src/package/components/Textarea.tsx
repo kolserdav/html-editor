@@ -8,11 +8,12 @@ const Textarea = forwardRef<
   HTMLDivElement,
   {
     theme: Theme;
+    text: string;
     onInput: (e: React.FormEvent<HTMLDivElement>) => void;
     onSelect: (e: React.SyntheticEvent<HTMLDivElement, Event>) => void;
     onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
   }
->(({ theme, onInput, onSelect, onKeyDown }, ref) => (
+>(({ theme, onInput, onSelect, onKeyDown, text }, ref) => (
   <div
     ref={ref}
     tabIndex={-1}
@@ -22,6 +23,7 @@ const Textarea = forwardRef<
     onKeyDown={onKeyDown}
     contentEditable
     className={s.wrapper}
+    dangerouslySetInnerHTML={{ __html: text }}
   />
 ));
 
